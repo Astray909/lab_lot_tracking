@@ -1,3 +1,4 @@
+from unittest import result
 import pandas as pd
 
 from tkinter.filedialog import askopenfilename
@@ -60,8 +61,16 @@ class lot:
         return f"{self.UID} happened in year {self.year}"
 
 def read_csv():
-    pass
+    read_df = pd.read_excel('C:\\Users\\jhuang\Desktop\\lab lot tracking\\DAILY LIST 2022.xlsx')
+    return read_df
+
+def uid_search(uid):
+    list_df = read_csv()
+    result_df = list_df.loc[list_df['UID #'] == uid]
+    result_df = result_df.iloc[[0]]
+    return result_df
 
 if __name__ == "__main__":
-    lot_a = lot('','','UID')
-    print(lot_a.desctiption())
+    # lot_a = lot('','','UID')
+    # print(lot_a.desctiption())
+    read_csv()
