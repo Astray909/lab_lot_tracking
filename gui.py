@@ -55,6 +55,7 @@ def update_info_1():
     search_result_df = pd.read_csv('C:\\Users\\jhuang\Desktop\\TEMP\\SEARCH_RESULT.csv')
     search_result_df.iloc[0,0] = entry_1_value.get()
     search_result_df.to_csv('C:\\Users\\jhuang\Desktop\\TEMP\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
     entry_1_result["text"] = entry_1_value.get()
 
 # Set-up the window
