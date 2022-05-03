@@ -6,7 +6,9 @@ from tkinter import simpledialog
 import pandas as pd
 import os
 
-import main as main_cla
+import legacy.main as main_cla
+
+desktop = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop') + '\\'
 
 def fun_1():
     fahrenheit = entry_1_value.get()
@@ -47,16 +49,198 @@ def retrieve_info():
     entry_28_result["text"] = result_df.iloc[:,27].values[0]
     entry_29_result["text"] = result_df.iloc[:,28].values[0]
 
-    if not os.path.exists('C:\\Users\\jhuang\Desktop\\TEMP'):
-        os.makedirs('C:\\Users\\jhuang\Desktop\\TEMP')
-    result_df.to_csv('C:\\Users\\jhuang\Desktop\\TEMP\\SEARCH_RESULT.csv',index=False)
+    if not os.path.exists(desktop + 'TEMP'):
+        os.makedirs(desktop + 'TEMP')
+    result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
 
 def update_info_1():
-    search_result_df = pd.read_csv('C:\\Users\\jhuang\Desktop\\TEMP\\SEARCH_RESULT.csv')
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
     search_result_df.iloc[0,0] = entry_1_value.get()
-    search_result_df.to_csv('C:\\Users\\jhuang\Desktop\\TEMP\\SEARCH_RESULT.csv',index=False)
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
     # prints the updated value on GUI
     entry_1_result["text"] = entry_1_value.get()
+
+def update_info_2():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,1] = entry_2_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_2_result["text"] = entry_2_value.get()
+
+def update_info_3():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,2] = entry_3_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_3_result["text"] = entry_3_value.get()
+
+def update_info_4():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,3] = entry_4_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_4_result["text"] = entry_4_value.get()
+
+def update_info_5():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,4] = entry_5_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_5_result["text"] = entry_5_value.get()
+
+def update_info_6():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,5] = entry_6_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_6_result["text"] = entry_6_value.get()
+
+def update_info_7():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,6] = entry_7_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_7_result["text"] = entry_7_value.get()
+
+def update_info_8():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,7] = entry_8_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_8_result["text"] = entry_8_value.get()
+
+def update_info_9():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,8] = entry_9_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_9_result["text"] = entry_9_value.get()
+
+def update_info_10():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,9] = entry_10_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_10_result["text"] = entry_10_value.get()
+
+def update_info_11():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,10] = entry_11_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_11_result["text"] = entry_11_value.get()
+
+def update_info_12():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,11] = entry_12_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_12_result["text"] = entry_12_value.get()
+
+def update_info_13():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,12] = entry_13_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_13_result["text"] = entry_13_value.get()
+
+def update_info_14():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,13] = entry_14_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_14_result["text"] = entry_14_value.get()
+
+def update_info_15():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,14] = entry_15_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_15_result["text"] = entry_15_value.get()
+
+def update_info_16():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,15] = entry_16_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_16_result["text"] = entry_16_value.get()
+
+def update_info_17():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,16] = entry_17_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_17_result["text"] = entry_17_value.get()
+
+def update_info_18():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,17] = entry_18_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_18_result["text"] = entry_18_value.get()
+
+def update_info_19():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,18] = entry_19_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_19_result["text"] = entry_19_value.get()
+
+def update_info_20():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,19] = entry_20_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_20_result["text"] = entry_20_value.get()
+
+def update_info_21():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,20] = entry_21_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_21_result["text"] = entry_21_value.get()
+
+def update_info_22():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,21] = entry_22_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_22_result["text"] = entry_22_value.get()
+
+def update_info_23():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,22] = entry_23_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_23_result["text"] = entry_23_value.get()
+
+def update_info_24():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,23] = entry_24_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_24_result["text"] = entry_24_value.get()
+
+def update_info_25():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,24] = entry_25_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_25_result["text"] = entry_25_value.get()
+
+def update_info_26():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,25] = entry_26_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_26_result["text"] = entry_26_value.get()
+
+def update_info_27():
+    search_result_df = pd.read_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv')
+    search_result_df.iloc[0,26] = entry_27_value.get()
+    search_result_df.to_csv(desktop + 'TEMP' + '\\SEARCH_RESULT.csv',index=False)
+    # prints the updated value on GUI
+    entry_27_result["text"] = entry_27_value.get()
 
 # Set-up the window
 window = tk.Tk()
@@ -104,7 +288,7 @@ entry_2_init.grid(row=1, column=1, sticky="w")
 entry_2_button = tk.Button(
     master=window,
     text="\N{RIGHTWARDS BLACK ARROW}",
-    command=retrieve_info
+    command=update_info_2
 )
 entry_2_result = tk.Label(master=window)
 
@@ -129,7 +313,7 @@ entry_3_init.grid(row=2, column=1, sticky="w")
 entry_3_button = tk.Button(
     master=window,
     text="\N{RIGHTWARDS BLACK ARROW}",
-    command=retrieve_info
+    command=update_info_3
 )
 entry_3_result = tk.Label(master=window)
 
@@ -154,7 +338,7 @@ entry_4_init.grid(row=3, column=1, sticky="w")
 entry_4_button = tk.Button(
     master=window,
     text="\N{RIGHTWARDS BLACK ARROW}",
-    command=retrieve_info
+    command=update_info_4
 )
 entry_4_result = tk.Label(master=window)
 
@@ -179,7 +363,7 @@ entry_5_init.grid(row=4, column=1, sticky="w")
 entry_5_button = tk.Button(
     master=window,
     text="\N{RIGHTWARDS BLACK ARROW}",
-    command=retrieve_info
+    command=update_info_5
 )
 entry_5_result = tk.Label(master=window)
 
@@ -204,7 +388,7 @@ entry_6_init.grid(row=5, column=1, sticky="w")
 entry_6_button = tk.Button(
     master=window,
     text="\N{RIGHTWARDS BLACK ARROW}",
-    command=retrieve_info
+    command=update_info_6
 )
 entry_6_result = tk.Label(master=window)
 
@@ -229,7 +413,7 @@ entry_7_init.grid(row=0, column=4, sticky="w")
 entry_7_button = tk.Button(
     master=window,
     text="\N{RIGHTWARDS BLACK ARROW}",
-    command=retrieve_info
+    command=update_info_7
 )
 entry_7_result = tk.Label(master=window)
 
@@ -254,7 +438,7 @@ entry_8_init.grid(row=1, column=4, sticky="w")
 entry_8_button = tk.Button(
     master=window,
     text="\N{RIGHTWARDS BLACK ARROW}",
-    command=retrieve_info
+    command=update_info_8
 )
 entry_8_result = tk.Label(master=window)
 
@@ -279,7 +463,7 @@ entry_9_init.grid(row=2, column=4, sticky="w")
 entry_9_button = tk.Button(
     master=window,
     text="\N{RIGHTWARDS BLACK ARROW}",
-    command=retrieve_info
+    command=update_info_9
 )
 entry_9_result = tk.Label(master=window)
 
@@ -304,7 +488,7 @@ entry_10_init.grid(row=3, column=4, sticky="w")
 entry_10_button = tk.Button(
     master=window,
     text="\N{RIGHTWARDS BLACK ARROW}",
-    command=retrieve_info
+    command=update_info_10
 )
 entry_10_result = tk.Label(master=window)
 
@@ -329,7 +513,7 @@ entry_11_init.grid(row=4, column=4, sticky="w")
 entry_11_button = tk.Button(
     master=window,
     text="\N{RIGHTWARDS BLACK ARROW}",
-    command=retrieve_info
+    command=update_info_11
 )
 entry_11_result = tk.Label(master=window)
 
@@ -354,7 +538,7 @@ entry_12_init.grid(row=5, column=4, sticky="w")
 entry_12_button = tk.Button(
     master=window,
     text="\N{RIGHTWARDS BLACK ARROW}",
-    command=retrieve_info
+    command=update_info_12
 )
 entry_12_result = tk.Label(master=window)
 
@@ -379,7 +563,7 @@ entry_13_init.grid(row=0, column=7, sticky="w")
 entry_13_button = tk.Button(
     master=window,
     text="\N{RIGHTWARDS BLACK ARROW}",
-    command=retrieve_info
+    command=update_info_13
 )
 entry_13_result = tk.Label(master=window)
 
@@ -404,7 +588,7 @@ entry_14_init.grid(row=1, column=7, sticky="w")
 entry_14_button = tk.Button(
     master=window,
     text="\N{RIGHTWARDS BLACK ARROW}",
-    command=retrieve_info
+    command=update_info_14
 )
 entry_14_result = tk.Label(master=window)
 
@@ -797,11 +981,11 @@ search_button = tk.Button(
     command=retrieve_info
 )
 
-update_button = tk.Button(
-    master=window,
-    text="UPDATE",
-    command=retrieve_info
-)
+# update_button = tk.Button(
+#     master=window,
+#     text="UPDATE",
+#     command=retrieve_info
+# )
 
 save_button = tk.Button(
     master=window,
@@ -814,8 +998,8 @@ entry_30_uid.grid(row=5, column=12, sticky="e")
 
 entry_30.grid(row=5, column=12, padx=10)
 search_button.grid(row=5, column=13, pady=10)
-update_button.grid(row=5, column=14, padx=10)
-save_button.grid(row=5, column=15, padx=10)
+# update_button.grid(row=5, column=14, padx=10)
+save_button.grid(row=5, column=14, padx=10)
 
 # Run the application
 window.mainloop()
