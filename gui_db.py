@@ -2,7 +2,9 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Treeview
 
-import sqlite3
+from tkinter.filedialog import asksaveasfile
+
+import sqlite3, csv
 
 class Database:
     def __init__(self, db):
@@ -193,6 +195,19 @@ def search_hostname():
 def execute_query():
     query = query_search.get()
     populate_list2(query)
+
+def save_csv():
+    files = [('CSV File', '*.csv')]
+    file = asksaveasfile(filetypes = files, defaultextension = files)
+    file = str(file).replace("<_io.TextIOWrapper name='",'').replace("' mode='w' encoding='cp1252'>",'')
+
+    with open(str(file), "w", newline='') as myfile:
+        csvwriter = csv.writer(myfile, delimiter=',')
+        csvwriter.writerow(['id','UID','YEAR','WEEK','DEPT','TESTER','PROGRAM','BOX','PRODUCT','DATECODE','LOT','TEST','PACKAGE','HOUR','STACK_TRAY','DEVICE_NUM','QTY','RECEIVED_FROM','WOR_FORM','RECEIVED_ORDER_DATE','TEST_START_DATE','TOTAL_TIME_CONSUMED','DATE_OUT','STATUS','COMMENTS','PRINT_LABEL'])
+        
+        for row_id in entry_tree_view.get_children():
+            row = entry_tree_view.item(row_id)['values']
+            csvwriter.writerow(row)
 
 app = Tk()
 frame_search = Frame(app)
@@ -413,6 +428,10 @@ search_btn.grid(row=0, column=2)
 search_query_btn = Button(frame_search, text='Search Query',
                           width=12, command=execute_query)
 search_query_btn.grid(row=1, column=2)
+
+search_query_btn = Button(frame_btns, text='Save CSV',
+                          width=12, command=save_csv)
+search_query_btn.grid(row=0, column=4)
 
 app.title('Test Database')
 app.geometry('1500x800')
