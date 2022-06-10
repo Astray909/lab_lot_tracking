@@ -68,7 +68,7 @@ class Database:
         self.conn.close()
 
 
-db = Database("file.db")
+db = Database("dailylist.db")
 
 
     
