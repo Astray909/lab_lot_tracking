@@ -68,7 +68,7 @@ class Database:
         self.conn.close()
 
 
-db = Database("dailylist.db")
+db = Database("X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\dailylist.db")
 
 
     
