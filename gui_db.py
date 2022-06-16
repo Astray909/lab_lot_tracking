@@ -382,13 +382,13 @@ PRINT_LABEL_entry = Entry(frame_fields, textvariable=PRINT_LABEL_text)
 PRINT_LABEL_entry.grid(row=4, column=9, sticky=W)
 
 frame_entry = Frame(app)
-frame_entry.grid(row=4, column=0, columnspan=4, rowspan=6, pady=20, padx=20)
+frame_entry.grid(row=8, column=0, columnspan=4, rowspan=6, pady=20, padx=30)
 
 columns = ['id','UID','YEAR','WEEK','DEPT','TESTER','PROGRAM','BOX','PRODUCT','DATECODE','LOT','TEST','PACKAGE','HOUR','STACK_TRAY','DEVICE_NUM','QTY','RECEIVED_FROM','WOR_FORM','RECEIVED_ORDER_DATE','TEST_START_DATE','TOTAL_TIME_CONSUMED','DATE_OUT','STATUS','COMMENTS','PRINT_LABEL']
 entry_tree_view = Treeview(frame_entry, columns=columns, show="headings")
 entry_tree_view.column("id", width=30)
 for col in columns[1:]:
-    entry_tree_view.column(col, width=55)
+    entry_tree_view.column(col, width=58)
     entry_tree_view.heading(col, text=col)
 entry_tree_view.bind('<<TreeviewSelect>>', select_entry)
 entry_tree_view.pack(side="left", fill="y")
@@ -434,7 +434,7 @@ search_query_btn = Button(frame_btns, text='Save CSV',
 search_query_btn.grid(row=0, column=4)
 
 app.title('Test Database')
-app.geometry('1500x800')
+app.geometry('1600x900')
 
 # Populate data
 populate_list()
