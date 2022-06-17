@@ -12,31 +12,31 @@ class Database:
         self.cur = self.conn.cursor()
         self.cur.execute(
             "CREATE TABLE IF NOT EXISTS entries (id INTEGER PRIMARY KEY,\
-                UID text,\
-                    YEAR integer,\
-                        WEEK integer,\
-                            DEPT text,\
-                                TESTER text,\
-                                    PROGRAM text,\
-                                        BOX text,\
-                                            PRODUCT text,\
-                                                DATECODE text,\
-                                                    LOT text,\
-                                                        TEST text,\
+                                                            STATUS text,\
+                                                            UID text,\
+                                                            YEAR integer,\
+                                                            WEEK integer,\
+                                                            DEPT text,\
+                                                            TESTER text,\
+                                                            PROGRAM text,\
+                                                            BOX text,\
+                                                            PRODUCT text,\
+                                                            DATECODE text,\
+                                                            LOT text,\
+                                                            TEST text,\
                                                             PACKAGE text,\
-                                                                HOUR text,\
-                                                                    STACK_TRAY text,\
-                                                                        DEVICE_NUM text,\
-                                                                            QTY integer,\
-                                                                                RECEIVED_FROM text,\
-                                                                                    WOR_FORM integer,\
-                                                                                        RECEIVED_ORDER_DATE text,\
-                                                                                            TEST_START_DATE text,\
-                                                                                                TOTAL_TIME_CONSUMED text,\
-                                                                                                    DATE_OUT text,\
-                                                                                                        STATUS text,\
-                                                                                                            COMMENTS text,\
-                                                                                                                PRINT_LABEL text)")
+                                                            HOUR text,\
+                                                            STACK_TRAY text,\
+                                                            DEVICE_NUM text,\
+                                                            QTY integer,\
+                                                            RECEIVED_FROM text,\
+                                                            WOR_FORM integer,\
+                                                            RECEIVED_ORDER_DATE text,\
+                                                            TEST_START_DATE text,\
+                                                            TOTAL_TIME_CONSUMED text,\
+                                                            DATE_OUT text,\
+                                                            COMMENTS text,\
+                                                            PRINT_LABEL text)")
         self.conn.commit()
 
     def fetch(self, UID=''):
@@ -50,18 +50,19 @@ class Database:
         rows = self.cur.fetchall()
         return rows
 
-    def insert(self, UID, YEAR, WEEK, DEPT, TESTER, PROGRAM, BOX, PRODUCT, DATECODE, LOT, TEST, PACKAGE, HOUR, STACK_TRAY, DEVICE_NUM, QTY, RECEIVED_FROM, WOR_FORM, RECEIVED_ORDER_DATE, TEST_START_DATE, TOTAL_TIME_CONSUMED, DATE_OUT, STATUS, COMMENTS, PRINT_LABEL):
+    def insert(self, STATUS, UID, YEAR, WEEK, DEPT, TESTER, PROGRAM, BOX, PRODUCT, DATECODE, LOT, TEST, PACKAGE, HOUR, STACK_TRAY, DEVICE_NUM, QTY, RECEIVED_FROM, WOR_FORM, RECEIVED_ORDER_DATE, TEST_START_DATE, TOTAL_TIME_CONSUMED, DATE_OUT, COMMENTS, PRINT_LABEL):
         self.cur.execute("INSERT INTO entries VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                         (UID, YEAR, WEEK, DEPT, TESTER, PROGRAM, BOX, PRODUCT, DATECODE, LOT, TEST, PACKAGE, HOUR, STACK_TRAY, DEVICE_NUM, QTY, RECEIVED_FROM, WOR_FORM, RECEIVED_ORDER_DATE, TEST_START_DATE, TOTAL_TIME_CONSUMED, DATE_OUT, STATUS, COMMENTS, PRINT_LABEL))
+                         (STATUS, UID, YEAR, WEEK, DEPT, TESTER, PROGRAM, BOX, PRODUCT, DATECODE, LOT, TEST, PACKAGE, HOUR, STACK_TRAY, DEVICE_NUM, QTY, RECEIVED_FROM, WOR_FORM, RECEIVED_ORDER_DATE, TEST_START_DATE, TOTAL_TIME_CONSUMED, DATE_OUT, COMMENTS, PRINT_LABEL))
         self.conn.commit()
 
     def remove(self, id):
         self.cur.execute("DELETE FROM entries WHERE id=?", (id,))
         self.conn.commit()
 
-    def update(self, id, UID, YEAR, WEEK, DEPT, TESTER, PROGRAM, BOX, PRODUCT, DATECODE, LOT, TEST, PACKAGE, HOUR, STACK_TRAY, DEVICE_NUM, QTY, RECEIVED_FROM, WOR_FORM, RECEIVED_ORDER_DATE, TEST_START_DATE, TOTAL_TIME_CONSUMED, DATE_OUT, STATUS, COMMENTS, PRINT_LABEL):
-        self.cur.execute("UPDATE entries SET UID = ?, YEAR = ?, WEEK = ?, DEPT = ?, TESTER = ?, PROGRAM = ?, BOX = ?, PRODUCT = ?, DATECODE = ?, LOT = ?, TEST = ?, PACKAGE = ?, HOUR = ?, STACK_TRAY = ?, DEVICE_NUM = ?, QTY = ?, RECEIVED_FROM = ?, WOR_FORM = ?, RECEIVED_ORDER_DATE = ?, TEST_START_DATE = ?, TOTAL_TIME_CONSUMED = ?, DATE_OUT = ?, STATUS = ?, COMMENTS = ?, PRINT_LABEL = ? WHERE id = ?",
-                         (UID, YEAR, WEEK, DEPT, TESTER, PROGRAM, BOX, PRODUCT, DATECODE, LOT, TEST, PACKAGE, HOUR, STACK_TRAY, DEVICE_NUM, QTY, RECEIVED_FROM, WOR_FORM, RECEIVED_ORDER_DATE, TEST_START_DATE, TOTAL_TIME_CONSUMED, DATE_OUT, STATUS, COMMENTS, PRINT_LABEL, id))
+    def update(self, id, STATUS, UID, YEAR, WEEK, DEPT, TESTER, PROGRAM, BOX, PRODUCT, DATECODE, LOT, TEST, PACKAGE, HOUR, STACK_TRAY, DEVICE_NUM, QTY, RECEIVED_FROM, WOR_FORM, RECEIVED_ORDER_DATE, TEST_START_DATE, TOTAL_TIME_CONSUMED, DATE_OUT, COMMENTS, PRINT_LABEL):
+        self.cur.execute("UPDATE entries SET STATUS = ?, UID = ?, YEAR = ?, WEEK = ?, DEPT = ?, TESTER = ?, PROGRAM = ?, BOX = ?, PRODUCT = ?, DATECODE = ?, LOT = ?, TEST = ?, PACKAGE = ?, HOUR = ?, STACK_TRAY = ?, DEVICE_NUM = ?, QTY = ?, RECEIVED_FROM = ?, WOR_FORM = ?, RECEIVED_ORDER_DATE = ?, TEST_START_DATE = ?, TOTAL_TIME_CONSUMED = ?, DATE_OUT = ?, COMMENTS = ?, PRINT_LABEL = ? WHERE id = ?",
+                         (STATUS, UID, YEAR, WEEK, DEPT, TESTER, PROGRAM, BOX, PRODUCT, DATECODE, LOT, TEST, PACKAGE, HOUR, STACK_TRAY, DEVICE_NUM, QTY, RECEIVED_FROM, WOR_FORM, RECEIVED_ORDER_DATE, TEST_START_DATE, TOTAL_TIME_CONSUMED, DATE_OUT, COMMENTS, PRINT_LABEL, id))
+        # self.cur.execute("SELECT * FROM entries ORDER BY id DESC;")
         self.conn.commit()
 
     def __del__(self):
@@ -85,10 +86,10 @@ def populate_list2(query='select * from entries'):
         entry_tree_view.insert('', 'end', values=row)
 
 def add_entry():
-    if UID_text.get() == '' or YEAR_text.get() == '' or WEEK_text.get() == '' or DEPT_text.get() == '' or TESTER_text.get() == '' or PROGRAM_text.get() == '' or BOX_text.get() == '' or PRODUCT_text.get() == '' or DATECODE_text.get() == '' or LOT_text.get() == '' or TEST_text.get() == '' or PACKAGE_text.get() == '' or HOUR_text.get() == '' or STACK_TRAY_text.get() == '' or DEVICE_NUM_text.get() == '' or QTY_text.get() == '' or RECEIVED_FROM_text.get() == '' or WOR_FORM_text.get() == '' or RECEIVED_ORDER_DATE_text.get() == '' or TEST_START_DATE_text.get() == '' or TOTAL_TIME_CONSUMED_text.get() == '' or DATE_OUT_text.get() == '' or STATUS_text.get() == '' or COMMENTS_text.get() == '' or PRINT_LABEL_text.get() == '':
-        messagebox.showerror('Required Fields', 'Please include all fields')
-        return
-    db.insert(UID_text.get(), YEAR_text.get(), WEEK_text.get(), DEPT_text.get(), TESTER_text.get(), PROGRAM_text.get(), BOX_text.get(), PRODUCT_text.get(), DATECODE_text.get(), LOT_text.get(), TEST_text.get(), PACKAGE_text.get(), HOUR_text.get(), STACK_TRAY_text.get(), DEVICE_NUM_text.get(), QTY_text.get(), RECEIVED_FROM_text.get(), WOR_FORM_text.get(), RECEIVED_ORDER_DATE_text.get(), TEST_START_DATE_text.get(), TOTAL_TIME_CONSUMED_text.get(), DATE_OUT_text.get(), STATUS_text.get(), COMMENTS_text.get(), PRINT_LABEL_text.get())
+    # if STATUS_text.get() == '' or UID_text.get() == '' or YEAR_text.get() == '' or WEEK_text.get() == '' or DEPT_text.get() == '' or TESTER_text.get() == '' or PROGRAM_text.get() == '' or BOX_text.get() == '' or PRODUCT_text.get() == '' or DATECODE_text.get() == '' or LOT_text.get() == '' or TEST_text.get() == '' or PACKAGE_text.get() == '' or HOUR_text.get() == '' or STACK_TRAY_text.get() == '' or DEVICE_NUM_text.get() == '' or QTY_text.get() == '' or RECEIVED_FROM_text.get() == '' or WOR_FORM_text.get() == '' or RECEIVED_ORDER_DATE_text.get() == '' or TEST_START_DATE_text.get() == '' or TOTAL_TIME_CONSUMED_text.get() == '' or DATE_OUT_text.get() == '' or COMMENTS_text.get() == '' or PRINT_LABEL_text.get() == '':
+    #     messagebox.showerror('Required Fields', 'Please include all fields')
+    #     return
+    db.insert(STATUS_text.get(), UID_text.get(), YEAR_text.get(), WEEK_text.get(), DEPT_text.get(), TESTER_text.get(), PROGRAM_text.get(), BOX_text.get(), PRODUCT_text.get(), DATECODE_text.get(), LOT_text.get(), TEST_text.get(), PACKAGE_text.get(), HOUR_text.get(), STACK_TRAY_text.get(), DEVICE_NUM_text.get(), QTY_text.get(), RECEIVED_FROM_text.get(), WOR_FORM_text.get(), RECEIVED_ORDER_DATE_text.get(), TEST_START_DATE_text.get(), TOTAL_TIME_CONSUMED_text.get(), DATE_OUT_text.get(), COMMENTS_text.get(), PRINT_LABEL_text.get())
     clear_text()
     populate_list()
 
@@ -99,51 +100,51 @@ def select_entry(event):
         index = entry_tree_view.selection()[0]
         selected_item = entry_tree_view.item(index)['values']
         UID_entry.delete(0, END)
-        UID_entry.insert(END, selected_item[1])
+        UID_entry.insert(END, selected_item[2])
         YEAR_entry.delete(0, END)
-        YEAR_entry.insert(END, selected_item[2])
+        YEAR_entry.insert(END, selected_item[3])
         WEEK_entry.delete(0, END)
-        WEEK_entry.insert(END, selected_item[3])
+        WEEK_entry.insert(END, selected_item[4])
         DEPT_entry.delete(0, END)
-        DEPT_entry.insert(END, selected_item[4])
+        DEPT_entry.insert(END, selected_item[5])
         TESTER_entry.delete(0, END)
-        TESTER_entry.insert(END, selected_item[5])
+        TESTER_entry.insert(END, selected_item[6])
         PROGRAM_entry.delete(0, END)
-        PROGRAM_entry.insert(END, selected_item[6])
+        PROGRAM_entry.insert(END, selected_item[7])
         BOX_entry.delete(0, END)
-        BOX_entry.insert(END, selected_item[7])
+        BOX_entry.insert(END, selected_item[8])
         PRODUCT_entry.delete(0, END)
-        PRODUCT_entry.insert(END, selected_item[8])
+        PRODUCT_entry.insert(END, selected_item[9])
         DATECODE_entry.delete(0, END)
-        DATECODE_entry.insert(END, selected_item[9])
+        DATECODE_entry.insert(END, selected_item[10])
         LOT_entry.delete(0, END)
-        LOT_entry.insert(END, selected_item[10])
+        LOT_entry.insert(END, selected_item[11])
         TEST_entry.delete(0, END)
-        TEST_entry.insert(END, selected_item[11])
+        TEST_entry.insert(END, selected_item[12])
         PACKAGE_entry.delete(0, END)
-        PACKAGE_entry.insert(END, selected_item[12])
+        PACKAGE_entry.insert(END, selected_item[13])
         HOUR_entry.delete(0, END)
-        HOUR_entry.insert(END, selected_item[13])
+        HOUR_entry.insert(END, selected_item[14])
         STACK_TRAY_entry.delete(0, END)
-        STACK_TRAY_entry.insert(END, selected_item[14])
+        STACK_TRAY_entry.insert(END, selected_item[15])
         DEVICE_NUM_entry.delete(0, END)
-        DEVICE_NUM_entry.insert(END, selected_item[15])
+        DEVICE_NUM_entry.insert(END, selected_item[16])
         QTY_entry.delete(0, END)
-        QTY_entry.insert(END, selected_item[16])
+        QTY_entry.insert(END, selected_item[17])
         RECEIVED_FROM_entry.delete(0, END)
-        RECEIVED_FROM_entry.insert(END, selected_item[17])
+        RECEIVED_FROM_entry.insert(END, selected_item[18])
         WOR_FORM_entry.delete(0, END)
-        WOR_FORM_entry.insert(END, selected_item[18])
+        WOR_FORM_entry.insert(END, selected_item[19])
         RECEIVED_ORDER_DATE_entry.delete(0, END)
-        RECEIVED_ORDER_DATE_entry.insert(END, selected_item[19])
+        RECEIVED_ORDER_DATE_entry.insert(END, selected_item[20])
         TEST_START_DATE_entry.delete(0, END)
-        TEST_START_DATE_entry.insert(END, selected_item[20])
+        TEST_START_DATE_entry.insert(END, selected_item[21])
         TOTAL_TIME_CONSUMED_entry.delete(0, END)
-        TOTAL_TIME_CONSUMED_entry.insert(END, selected_item[21])
+        TOTAL_TIME_CONSUMED_entry.insert(END, selected_item[22])
         DATE_OUT_entry.delete(0, END)
-        DATE_OUT_entry.insert(END, selected_item[22])
+        DATE_OUT_entry.insert(END, selected_item[23])
         STATUS_entry.delete(0, END)
-        STATUS_entry.insert(END, selected_item[23])
+        STATUS_entry.insert(END, selected_item[1])
         COMMENTS_entry.delete(0, END)
         COMMENTS_entry.insert(END, selected_item[24])
         PRINT_LABEL_entry.delete(0, END)
@@ -152,13 +153,21 @@ def select_entry(event):
         pass
 
 def remove_entry():
-    db.remove(selected_item[0])
-    clear_text()
-    populate_list()
+    MsgBox = messagebox.askquestion('Remove Entry','Are you sure you want to remove the selected entry?',icon = 'warning')
+    if MsgBox == 'yes':
+        db.remove(selected_item[0])
+        clear_text()
+        populate_list()
+    else:
+        pass
 
 def update_entry():
-    db.update(selected_item[0], UID_text.get(), YEAR_text.get(), WEEK_text.get(), DEPT_text.get(), TESTER_text.get(), PROGRAM_text.get(), BOX_text.get(), PRODUCT_text.get(), DATECODE_text.get(), LOT_text.get(), TEST_text.get(), PACKAGE_text.get(), HOUR_text.get(), STACK_TRAY_text.get(), DEVICE_NUM_text.get(), QTY_text.get(), RECEIVED_FROM_text.get(), WOR_FORM_text.get(), RECEIVED_ORDER_DATE_text.get(), TEST_START_DATE_text.get(), TOTAL_TIME_CONSUMED_text.get(), DATE_OUT_text.get(), STATUS_text.get(), COMMENTS_text.get(), PRINT_LABEL_text.get())
-    populate_list()
+    MsgBox = messagebox.askquestion('Update Entry','Are you sure you want to update the selected entry?',icon = 'warning')
+    if MsgBox == 'yes':
+        db.update(selected_item[0], STATUS_text.get(), UID_text.get(), YEAR_text.get(), WEEK_text.get(), DEPT_text.get(), TESTER_text.get(), PROGRAM_text.get(), BOX_text.get(), PRODUCT_text.get(), DATECODE_text.get(), LOT_text.get(), TEST_text.get(), PACKAGE_text.get(), HOUR_text.get(), STACK_TRAY_text.get(), DEVICE_NUM_text.get(), QTY_text.get(), RECEIVED_FROM_text.get(), WOR_FORM_text.get(), RECEIVED_ORDER_DATE_text.get(), TEST_START_DATE_text.get(), TOTAL_TIME_CONSUMED_text.get(), DATE_OUT_text.get(), COMMENTS_text.get(), PRINT_LABEL_text.get())
+        populate_list()
+    else:
+        pass
 
 def clear_text():
     UID_entry.delete(0, END)
@@ -203,7 +212,7 @@ def save_csv():
 
     with open(str(file), "w", newline='') as myfile:
         csvwriter = csv.writer(myfile, delimiter=',')
-        csvwriter.writerow(['id','UID','YEAR','WEEK','DEPT','TESTER','PROGRAM','BOX','PRODUCT','DATECODE','LOT','TEST','PACKAGE','HOUR','STACK_TRAY','DEVICE_NUM','QTY','RECEIVED_FROM','WOR_FORM','RECEIVED_ORDER_DATE','TEST_START_DATE','TOTAL_TIME_CONSUMED','DATE_OUT','STATUS','COMMENTS','PRINT_LABEL'])
+        csvwriter.writerow(['id','STATUS','UID','YEAR','WEEK','DEPT','TESTER','PROGRAM','BOX','PRODUCT','DATECODE','LOT','TEST','PACKAGE','HOUR','STACK_TRAY','DEVICE_NUM','QTY','RECEIVED_FROM','WOR_FORM','RECEIVED_ORDER_DATE','TEST_START_DATE','TOTAL_TIME_CONSUMED','DATE_OUT','COMMENTS','PRINT_LABEL'])
         
         for row_id in entry_tree_view.get_children():
             row = entry_tree_view.item(row_id)['values']
@@ -364,7 +373,7 @@ DATE_OUT_entry = Entry(frame_fields, textvariable=DATE_OUT_text)
 DATE_OUT_entry.grid(row=4, column=3, sticky=W)
 # STATUS
 STATUS_text = StringVar()
-STATUS_label = Label(frame_fields, text='STATUS', font=('bold', 12))
+STATUS_label = Label(frame_fields, text='STATUS', font=('bold', 12), bg = 'green')
 STATUS_label.grid(row=4, column=4, sticky=E)
 STATUS_entry = Entry(frame_fields, textvariable=STATUS_text)
 STATUS_entry.grid(row=4, column=5, sticky=W)
@@ -384,7 +393,7 @@ PRINT_LABEL_entry.grid(row=4, column=9, sticky=W)
 frame_entry = Frame(app)
 frame_entry.grid(row=8, column=0, columnspan=4, rowspan=6, pady=20, padx=30)
 
-columns = ['id','UID','YEAR','WEEK','DEPT','TESTER','PROGRAM','BOX','PRODUCT','DATECODE','LOT','TEST','PACKAGE','HOUR','STACK_TRAY','DEVICE_NUM','QTY','RECEIVED_FROM','WOR_FORM','RECEIVED_ORDER_DATE','TEST_START_DATE','TOTAL_TIME_CONSUMED','DATE_OUT','STATUS','COMMENTS','PRINT_LABEL']
+columns = ['id','STATUS','UID','YEAR','WEEK','DEPT','TESTER','PROGRAM','BOX','PRODUCT','DATECODE','LOT','TEST','PACKAGE','HOUR','STACK_TRAY','DEVICE_NUM','QTY','RECEIVED_FROM','WOR_FORM','RECEIVED_ORDER_DATE','TEST_START_DATE','TOTAL_TIME_CONSUMED','DATE_OUT','COMMENTS','PRINT_LABEL']
 entry_tree_view = Treeview(frame_entry, columns=columns, show="headings")
 entry_tree_view.column("id", width=30)
 for col in columns[1:]:
