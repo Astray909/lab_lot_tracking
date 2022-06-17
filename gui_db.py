@@ -414,11 +414,6 @@ scrollbar.configure(command=entry_tree_view.yview)
 scrollbar.pack(side="right", fill="y")
 entry_tree_view.config(yscrollcommand=scrollbar.set)
 
-scrollbar_x = Scrollbar(frame_entry, orient='horizontal')
-scrollbar_x.configure(command=entry_tree_view.xview)
-scrollbar_x.pack(side="bottom", fill="y")
-entry_tree_view.config(yscrollcommand=scrollbar_x.set)
-
 frame_btns = Frame(app)
 frame_btns.grid(row=3, column=0)
 
