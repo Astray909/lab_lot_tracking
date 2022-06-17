@@ -356,7 +356,7 @@ WOR_FORM_entry = Entry(frame_fields, textvariable=WOR_FORM_text)
 WOR_FORM_entry.grid(row=3, column=5, sticky=W)
 # RECEIVED_ORDER_DATE
 RECEIVED_ORDER_DATE_text = StringVar()
-RECEIVED_ORDER_DATE_label = Label(frame_fields, text='RECEIVED_ORDER_DATE', font=('bold', 12))
+RECEIVED_ORDER_DATE_label = Label(frame_fields, text='RECEIVED_ORDER_DATE', font=('bold', 12), bg='orange')
 RECEIVED_ORDER_DATE_label.grid(row=3, column=6, sticky=E)
 RECEIVED_ORDER_DATE_entry = Entry(frame_fields, textvariable=RECEIVED_ORDER_DATE_text)
 RECEIVED_ORDER_DATE_entry.grid(row=3, column=7, sticky=W)
@@ -450,7 +450,7 @@ save_csv_btn = Button(frame_btns, text='Save CSV',
 save_csv_btn.grid(row=0, column=4)
 
 add_date_btn = Button(frame_btns, text="Today's Date",
-                          width=12, command=today_date)
+                          width=12, command=today_date, bg='orange')
 add_date_btn.grid(row=0, column=5, padx = 50)
 
 app.title('Test Database')
