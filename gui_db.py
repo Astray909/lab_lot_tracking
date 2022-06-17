@@ -1,3 +1,4 @@
+from datetime import date
 from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Treeview
@@ -217,6 +218,12 @@ def save_csv():
         for row_id in entry_tree_view.get_children():
             row = entry_tree_view.item(row_id)['values']
             csvwriter.writerow(row)
+
+def today_date():
+    today = date.today()
+    today_date = today.strftime("%d-%b-%y")
+    RECEIVED_ORDER_DATE_entry.delete(0, END)
+    RECEIVED_ORDER_DATE_entry.insert(END, today_date)
 
 app = Tk()
 frame_search = Frame(app)
@@ -438,9 +445,13 @@ search_query_btn = Button(frame_search, text='Search Query',
                           width=12, command=execute_query)
 search_query_btn.grid(row=1, column=2)
 
-search_query_btn = Button(frame_btns, text='Save CSV',
+save_csv_btn = Button(frame_btns, text='Save CSV',
                           width=12, command=save_csv)
-search_query_btn.grid(row=0, column=4)
+save_csv_btn.grid(row=0, column=4)
+
+add_date_btn = Button(frame_btns, text="Today's Date",
+                          width=12, command=today_date)
+add_date_btn.grid(row=0, column=5, padx = 50)
 
 app.title('Test Database')
 app.geometry('1600x900')
