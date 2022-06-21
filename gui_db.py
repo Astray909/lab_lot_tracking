@@ -2,6 +2,8 @@ from datetime import date
 from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Treeview
+import tkinter.font as tkFont
+from PIL import ImageTk,Image 
 
 from tkinter.filedialog import asksaveasfile
 
@@ -225,9 +227,24 @@ def today_date():
     RECEIVED_ORDER_DATE_entry.delete(0, END)
     RECEIVED_ORDER_DATE_entry.insert(END, today_date)
 
+def destroy():
+    app.destroy()
+
 app = Tk()
+
+frame_logo = Frame(app)
+frame_logo.grid(row=0, column=0, sticky=W)
+
+img = ImageTk.PhotoImage(Image.open("img\\gan-systems-logo-fc-340x156.png"))
+gan_logo = Label(frame_logo, image = img)
+gan_logo.grid(row=0, column=0)
+
+ft = tkFont.Font(family='Times', size=10)
+exit_btn = Button(frame_logo, text='QUIT', width=15, height = 5, relief="raised", command=destroy, bg="red", fg="white", font=ft)
+exit_btn.grid(row=0, column=1, padx=1450, sticky=E)
+
 frame_search = Frame(app)
-frame_search.grid(row=0, column=0)
+frame_search.grid(row=1, column=0)
 
 lbl_search = Label(frame_search, text='Search by UID',
                    font=('bold', 12), pady=20)
@@ -240,12 +257,12 @@ lbl_search = Label(frame_search, text='Search by Query',
                    font=('bold', 12), pady=20)
 lbl_search.grid(row=1, column=0, sticky=W)
 query_search = StringVar()
-query_search.set("Select * from entries where YEAR>1")
+query_search.set("SELECT * FROM entries ORDER BY id DESC")
 query_search_entry = Entry(frame_search, textvariable=query_search, width=40)
 query_search_entry.grid(row=1, column=1)
 
 frame_fields = Frame(app)
-frame_fields.grid(row=1, column=0)
+frame_fields.grid(row=2, column=0)
 # UID
 UID_text = StringVar()
 UID_label = Label(frame_fields, text='UID', font=('bold', 12))
@@ -397,23 +414,6 @@ PRINT_LABEL_label.grid(row=4, column=8, sticky=E)
 PRINT_LABEL_entry = Entry(frame_fields, textvariable=PRINT_LABEL_text)
 PRINT_LABEL_entry.grid(row=4, column=9, sticky=W)
 
-frame_entry = Frame(app)
-frame_entry.grid(row=8, column=0, columnspan=4, rowspan=6, pady=20, padx=30)
-
-columns = ['id','STATUS','UID','YEAR','WEEK','DEPT','TESTER','PROGRAM','BOX','PRODUCT','DATECODE','LOT','TEST','PACKAGE','HOUR','STACK_TRAY','DEVICE_NUM','QTY','RECEIVED_FROM','WOR_FORM','RECEIVED_ORDER_DATE','TEST_START_DATE','TOTAL_TIME_CONSUMED','DATE_OUT','COMMENTS','PRINT_LABEL']
-entry_tree_view = Treeview(frame_entry, columns=columns, show="headings")
-entry_tree_view.column("id", width=30)
-for col in columns[1:]:
-    entry_tree_view.column(col, width=58)
-    entry_tree_view.heading(col, text=col)
-entry_tree_view.bind('<<TreeviewSelect>>', select_entry)
-entry_tree_view.pack(side="left", fill="y")
-
-scrollbar = Scrollbar(frame_entry, orient='vertical')
-scrollbar.configure(command=entry_tree_view.yview)
-scrollbar.pack(side="right", fill="y")
-entry_tree_view.config(yscrollcommand=scrollbar.set)
-
 frame_btns = Frame(app)
 frame_btns.grid(row=3, column=0)
 
@@ -448,8 +448,33 @@ add_date_btn = Button(frame_btns, text="Today's Date",
                           width=12, command=today_date, bg='orange')
 add_date_btn.grid(row=0, column=5, padx = 50)
 
+frame_entry = Frame(app)
+frame_entry.grid(row=4, column=0, columnspan=4, rowspan=10, pady=20, padx=30, sticky=E+W+N+S)
+frame_entry.rowconfigure(0, weight=10)
+
+columns = ['id','STATUS','UID','YEAR','WEEK','DEPT','TESTER','PROGRAM','BOX','PRODUCT','DATECODE','LOT','TEST','PACKAGE','HOUR','STACK_TRAY','DEVICE_NUM','QTY','RECEIVED_FROM','WOR_FORM','RECEIVED_ORDER_DATE','TEST_START_DATE','TOTAL_TIME_CONSUMED','DATE_OUT','COMMENTS','PRINT_LABEL']
+entry_tree_view = Treeview(frame_entry, columns=columns, show="headings", height=25)
+entry_tree_view.grid(row=0, column=0, sticky=E+W+N+S)
+entry_tree_view.column("id", width=32)
+for col in columns[1:]:
+    entry_tree_view.column(col, width=72)
+    entry_tree_view.heading(col, text=col)
+entry_tree_view.bind('<<TreeviewSelect>>', select_entry)
+
+scrollbar = Scrollbar(frame_entry, orient='vertical')
+scrollbar.configure(command=entry_tree_view.yview)
+scrollbar.grid(row=0, column=1, sticky=N+S)
+entry_tree_view.config(yscrollcommand=scrollbar.set)
+
+x_scrollbar = Scrollbar(frame_entry, orient='horizontal')
+x_scrollbar.configure(command=entry_tree_view.xview)
+x_scrollbar.grid(row=1, column=0, sticky=E+W)
+entry_tree_view.config(xscrollcommand=x_scrollbar.set)
+
 app.title('Test Database')
-app.geometry('1600x900')
+app.geometry('1920x1080')
+app.columnconfigure(0, weight=5)
+app.attributes('-fullscreen', True)
 
 # Populate data
 populate_list()
