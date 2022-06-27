@@ -227,6 +227,12 @@ def today_date():
     RECEIVED_ORDER_DATE_entry.delete(0, END)
     RECEIVED_ORDER_DATE_entry.insert(END, today_date)
 
+def reset_width():
+    entry_tree_view.column("id", width=32)
+    for col in columns[1:]:
+        entry_tree_view.column(col, width=72)
+        entry_tree_view.heading(col, text=col)
+
 def destroy():
     app.destroy()
 
@@ -447,6 +453,10 @@ save_csv_btn.grid(row=0, column=4)
 add_date_btn = Button(frame_btns, text="Today's Date",
                           width=12, command=today_date, bg='orange')
 add_date_btn.grid(row=0, column=5, padx = 50)
+
+add_date_btn = Button(frame_btns, text="↓ Reset Column Width ↓",
+                          width=19, command=reset_width, bg='yellow')
+add_date_btn.grid(row=0, column=6, padx = 50)
 
 frame_entry = Frame(app)
 frame_entry.grid(row=4, column=0, columnspan=4, rowspan=10, pady=20, padx=30, sticky=E+W+N+S)
