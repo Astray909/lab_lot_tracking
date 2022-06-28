@@ -232,6 +232,9 @@ def reset_width():
     for col in columns[1:]:
         entry_tree_view.column(col, width=72)
         entry_tree_view.heading(col, text=col)
+    
+def sort_desc():
+    populate_list2("SELECT * FROM entries ORDER BY id DESC")
 
 def destroy():
     app.destroy()
@@ -263,7 +266,7 @@ lbl_search = Label(frame_search, text='Search by Query',
                    font=('bold', 12), pady=20)
 lbl_search.grid(row=1, column=0, sticky=W)
 query_search = StringVar()
-query_search.set("SELECT * FROM entries ORDER BY id DESC")
+query_search.set("SELECT * FROM entries WHERE YEAR > 2021")
 query_search_entry = Entry(frame_search, textvariable=query_search, width=40)
 query_search_entry.grid(row=1, column=1)
 
@@ -454,9 +457,13 @@ add_date_btn = Button(frame_btns, text="Today's Date",
                           width=12, command=today_date, bg='orange')
 add_date_btn.grid(row=0, column=5, padx = 50)
 
-add_date_btn = Button(frame_btns, text="↓ Reset Column Width ↓",
+reset_width_btn = Button(frame_btns, text="↓ Reset Column Width ↓",
                           width=19, command=reset_width, bg='yellow')
-add_date_btn.grid(row=0, column=6, padx = 50)
+reset_width_btn.grid(row=0, column=6, padx = 50)
+
+sort_desc_btn = Button(frame_btns, text="↓ Sort by ID DESC ↓",
+                          width=19, command=sort_desc, bg='pink')
+sort_desc_btn.grid(row=0, column=7, padx = 50)
 
 frame_entry = Frame(app)
 frame_entry.grid(row=4, column=0, columnspan=4, rowspan=10, pady=20, padx=30, sticky=E+W+N+S)
@@ -488,6 +495,9 @@ app.attributes('-fullscreen', True)
 
 # Populate data
 populate_list()
+
+#Sort from newest to oldest
+sort_desc()
 
 # Start program
 app.mainloop()
