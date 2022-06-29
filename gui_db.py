@@ -10,6 +10,7 @@ from tkinter.filedialog import asksaveasfile
 import sqlite3, csv
 
 class Database:
+    # Builds an empty database if not detected
     def __init__(self, db):
         self.conn = sqlite3.connect(db)
         self.cur = self.conn.cursor()
@@ -42,52 +43,60 @@ class Database:
                                                             PRINT_LABEL text)")
         self.conn.commit()
 
+    # Fetches all rows containing a certain UID
     def fetch(self, UID=''):
         self.cur.execute(
             "SELECT * FROM entries WHERE UID LIKE ? ORDER BY id DESC", ('%'+UID+'%',))
         rows = self.cur.fetchall()
         return rows
 
+    # Custom SQL query entry, returns all results
     def fetch2(self, query):
         self.cur.execute(query)
         rows = self.cur.fetchall()
         return rows
 
+    # inserts a new row into database
     def insert(self, STATUS, UID, YEAR, WEEK, DEPT, TESTER, PROGRAM, BOX, PRODUCT, DATECODE, LOT, TEST, PACKAGE, HOUR, STACK_TRAY, DEVICE_NUM, QTY, RECEIVED_FROM, WOR_FORM, RECEIVED_ORDER_DATE, TEST_START_DATE, TOTAL_TIME_CONSUMED, DATE_OUT, COMMENTS, PRINT_LABEL):
         self.cur.execute("INSERT INTO entries VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                          (STATUS, UID, YEAR, WEEK, DEPT, TESTER, PROGRAM, BOX, PRODUCT, DATECODE, LOT, TEST, PACKAGE, HOUR, STACK_TRAY, DEVICE_NUM, QTY, RECEIVED_FROM, WOR_FORM, RECEIVED_ORDER_DATE, TEST_START_DATE, TOTAL_TIME_CONSUMED, DATE_OUT, COMMENTS, PRINT_LABEL))
         self.conn.commit()
 
+    # removes a row with given rowid
     def remove(self, id):
         self.cur.execute("DELETE FROM entries WHERE id=?", (id,))
         self.conn.commit()
 
+    # update a row with given rowid
     def update(self, id, STATUS, UID, YEAR, WEEK, DEPT, TESTER, PROGRAM, BOX, PRODUCT, DATECODE, LOT, TEST, PACKAGE, HOUR, STACK_TRAY, DEVICE_NUM, QTY, RECEIVED_FROM, WOR_FORM, RECEIVED_ORDER_DATE, TEST_START_DATE, TOTAL_TIME_CONSUMED, DATE_OUT, COMMENTS, PRINT_LABEL):
         self.cur.execute("UPDATE entries SET STATUS = ?, UID = ?, YEAR = ?, WEEK = ?, DEPT = ?, TESTER = ?, PROGRAM = ?, BOX = ?, PRODUCT = ?, DATECODE = ?, LOT = ?, TEST = ?, PACKAGE = ?, HOUR = ?, STACK_TRAY = ?, DEVICE_NUM = ?, QTY = ?, RECEIVED_FROM = ?, WOR_FORM = ?, RECEIVED_ORDER_DATE = ?, TEST_START_DATE = ?, TOTAL_TIME_CONSUMED = ?, DATE_OUT = ?, COMMENTS = ?, PRINT_LABEL = ? WHERE id = ?",
                          (STATUS, UID, YEAR, WEEK, DEPT, TESTER, PROGRAM, BOX, PRODUCT, DATECODE, LOT, TEST, PACKAGE, HOUR, STACK_TRAY, DEVICE_NUM, QTY, RECEIVED_FROM, WOR_FORM, RECEIVED_ORDER_DATE, TEST_START_DATE, TOTAL_TIME_CONSUMED, DATE_OUT, COMMENTS, PRINT_LABEL, id))
         # self.cur.execute("SELECT * FROM entries ORDER BY id DESC;")
         self.conn.commit()
 
+    # closes db connection
     def __del__(self):
         self.conn.close()
 
-
+# points to a db file, can be changed
 db = Database("X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\dailylist.db")
 
 
-    
+# displays filtered db in treeview with given UID
 def populate_list(UID=''):
     for i in entry_tree_view.get_children():
         entry_tree_view.delete(i)
     for row in db.fetch(UID):
         entry_tree_view.insert('', 'end', values=row)
 
+# displays filtered db in treeview wuth custom query
 def populate_list2(query='select * from entries'):
     for i in entry_tree_view.get_children():
         entry_tree_view.delete(i)
     for row in db.fetch2(query):
         entry_tree_view.insert('', 'end', values=row)
 
+# get all entries and populate db
 def add_entry():
     # if STATUS_text.get() == '' or UID_text.get() == '' or YEAR_text.get() == '' or WEEK_text.get() == '' or DEPT_text.get() == '' or TESTER_text.get() == '' or PROGRAM_text.get() == '' or BOX_text.get() == '' or PRODUCT_text.get() == '' or DATECODE_text.get() == '' or LOT_text.get() == '' or TEST_text.get() == '' or PACKAGE_text.get() == '' or HOUR_text.get() == '' or STACK_TRAY_text.get() == '' or DEVICE_NUM_text.get() == '' or QTY_text.get() == '' or RECEIVED_FROM_text.get() == '' or WOR_FORM_text.get() == '' or RECEIVED_ORDER_DATE_text.get() == '' or TEST_START_DATE_text.get() == '' or TOTAL_TIME_CONSUMED_text.get() == '' or DATE_OUT_text.get() == '' or COMMENTS_text.get() == '' or PRINT_LABEL_text.get() == '':
     #     messagebox.showerror('Required Fields', 'Please include all fields')
@@ -97,7 +106,7 @@ def add_entry():
     populate_list()
     sort_desc()
 
-
+# selects a row entry, replaces original entry values with selected row values
 def select_entry(event):
     try:
         global selected_item
@@ -156,6 +165,7 @@ def select_entry(event):
     except IndexError:
         pass
 
+# removes a row entry, displays a tkinter confirmation popup
 def remove_entry():
     MsgBox = messagebox.askquestion('Remove Entry','Are you sure you want to remove the selected entry?',icon = 'warning')
     if MsgBox == 'yes':
@@ -166,6 +176,7 @@ def remove_entry():
     else:
         pass
 
+# updates a row entry, displays a tkinter confirmation popup
 def update_entry():
     MsgBox = messagebox.askquestion('Update Entry','Are you sure you want to update the selected entry?',icon = 'warning')
     if MsgBox == 'yes':
@@ -175,6 +186,7 @@ def update_entry():
     else:
         pass
 
+# deletes values all entries, does not affect values stored in db
 def clear_text():
     UID_entry.delete(0, END)
     YEAR_entry.delete(0, END)
@@ -202,20 +214,23 @@ def clear_text():
     COMMENTS_entry.delete(0, END)
     PRINT_LABEL_entry.delete(0, END)
 
+# search by uid
 def search_uid():
     UID = UID_search.get()
     populate_list(UID)
 
-
+# execute custom query
 def execute_query():
     query = query_search.get()
     populate_list2(query)
 
+# save search scope as a .csv file, explorer window will default .csv format
 def save_csv():
-    files = [('CSV File', '*.csv')]
-    file = asksaveasfile(filetypes = files, defaultextension = files)
-    file = str(file).replace("<_io.TextIOWrapper name='",'').replace("' mode='w' encoding='cp1252'>",'')
+    files = [('CSV File', '*.csv')] #sets default file format
+    file = asksaveasfile(filetypes = files, defaultextension = files) #ask user for output directory as well as file name
+    file = str(file).replace("<_io.TextIOWrapper name='",'').replace("' mode='w' encoding='cp1252'>",'') #changes encoding format
 
+    # writes searchsope to csv row by row
     with open(str(file), "w", newline='') as myfile:
         csvwriter = csv.writer(myfile, delimiter=',')
         csvwriter.writerow(['id','STATUS','UID','YEAR','WEEK','DEPT','TESTER','PROGRAM','BOX','PRODUCT','DATECODE','LOT','TEST','PACKAGE','HOUR','STACK_TRAY','DEVICE_NUM','QTY','RECEIVED_FROM','WOR_FORM','RECEIVED_ORDER_DATE','TEST_START_DATE','TOTAL_TIME_CONSUMED','DATE_OUT','COMMENTS','PRINT_LABEL'])
@@ -223,22 +238,27 @@ def save_csv():
         for row_id in entry_tree_view.get_children():
             row = entry_tree_view.item(row_id)['values']
             csvwriter.writerow(row)
+    myfile.close()
 
+# automatically populates current date
 def today_date():
     today = date.today()
     today_date = today.strftime("%d-%b-%y")
     RECEIVED_ORDER_DATE_entry.delete(0, END)
     RECEIVED_ORDER_DATE_entry.insert(END, today_date)
 
+# reset treeview column widths to default
 def reset_width():
     entry_tree_view.column("id", width=32)
     for col in columns[1:]:
         entry_tree_view.column(col, width=72)
         entry_tree_view.heading(col, text=col)
-    
+
+# sort db by id in desc
 def sort_desc():
     populate_list2("SELECT * FROM entries ORDER BY id DESC")
 
+# quits script
 def destroy():
     app.destroy()
 
