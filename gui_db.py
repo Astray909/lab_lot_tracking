@@ -267,8 +267,8 @@ app = Tk()
 frame_logo = Frame(app)
 frame_logo.grid(row=0, column=0, sticky=W)
 
-img = ImageTk.PhotoImage(Image.open("img\\gan-systems-logo-fc-340x156.png"))
-gan_logo = Label(frame_logo, image = img)
+img = ImageTk.PhotoImage(Image.open("img\\gan-systems-logo-fc-340x156.png")) #Gan sys logo
+gan_logo = Label(frame_logo, image = img) #attach logo img as label
 gan_logo.grid(row=0, column=0)
 
 ft = tkFont.Font(family='Times', size=10)
@@ -289,7 +289,7 @@ lbl_search = Label(frame_search, text='Search by Query',
                    font=('bold', 12), pady=20)
 lbl_search.grid(row=1, column=0, sticky=W)
 query_search = StringVar()
-query_search.set("SELECT * FROM entries WHERE YEAR > 2021 ORDER BY id DESC")
+query_search.set("SELECT * FROM entries WHERE YEAR > 2021 ORDER BY id DESC") #default query
 query_search_entry = Entry(frame_search, textvariable=query_search, width=70)
 query_search_entry.grid(row=1, column=1)
 
@@ -512,9 +512,9 @@ x_scrollbar.grid(row=1, column=0, sticky=E+W)
 entry_tree_view.config(xscrollcommand=x_scrollbar.set)
 
 app.title('Test Database')
-app.geometry('1920x1080')
+app.geometry('1920x1080') #default window resolution, change according to target resolution and monitor
 app.columnconfigure(0, weight=5)
-app.attributes('-fullscreen', True)
+app.attributes('-fullscreen', True) #fullscreen flag, can be changed depending on target resolution and monitor
 
 # Populate data
 populate_list()
