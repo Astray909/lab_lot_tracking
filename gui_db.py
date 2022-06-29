@@ -44,7 +44,7 @@ class Database:
 
     def fetch(self, UID=''):
         self.cur.execute(
-            "SELECT * FROM entries WHERE UID LIKE ?", ('%'+UID+'%',))
+            "SELECT * FROM entries WHERE UID LIKE ? ORDER BY id DESC", ('%'+UID+'%',))
         rows = self.cur.fetchall()
         return rows
 
@@ -95,6 +95,7 @@ def add_entry():
     db.insert(STATUS_text.get(), UID_text.get(), YEAR_text.get(), WEEK_text.get(), DEPT_text.get(), TESTER_text.get(), PROGRAM_text.get(), BOX_text.get(), PRODUCT_text.get(), DATECODE_text.get(), LOT_text.get(), TEST_text.get(), PACKAGE_text.get(), HOUR_text.get(), STACK_TRAY_text.get(), DEVICE_NUM_text.get(), QTY_text.get(), RECEIVED_FROM_text.get(), WOR_FORM_text.get(), RECEIVED_ORDER_DATE_text.get(), TEST_START_DATE_text.get(), TOTAL_TIME_CONSUMED_text.get(), DATE_OUT_text.get(), COMMENTS_text.get(), PRINT_LABEL_text.get())
     clear_text()
     populate_list()
+    sort_desc()
 
 
 def select_entry(event):
@@ -161,6 +162,7 @@ def remove_entry():
         db.remove(selected_item[0])
         clear_text()
         populate_list()
+        sort_desc()
     else:
         pass
 
@@ -169,6 +171,7 @@ def update_entry():
     if MsgBox == 'yes':
         db.update(selected_item[0], STATUS_text.get(), UID_text.get(), YEAR_text.get(), WEEK_text.get(), DEPT_text.get(), TESTER_text.get(), PROGRAM_text.get(), BOX_text.get(), PRODUCT_text.get(), DATECODE_text.get(), LOT_text.get(), TEST_text.get(), PACKAGE_text.get(), HOUR_text.get(), STACK_TRAY_text.get(), DEVICE_NUM_text.get(), QTY_text.get(), RECEIVED_FROM_text.get(), WOR_FORM_text.get(), RECEIVED_ORDER_DATE_text.get(), TEST_START_DATE_text.get(), TOTAL_TIME_CONSUMED_text.get(), DATE_OUT_text.get(), COMMENTS_text.get(), PRINT_LABEL_text.get())
         populate_list()
+        sort_desc()
     else:
         pass
 
@@ -199,7 +202,7 @@ def clear_text():
     COMMENTS_entry.delete(0, END)
     PRINT_LABEL_entry.delete(0, END)
 
-def search_hostname():
+def search_uid():
     UID = UID_search.get()
     populate_list(UID)
 
@@ -266,8 +269,8 @@ lbl_search = Label(frame_search, text='Search by Query',
                    font=('bold', 12), pady=20)
 lbl_search.grid(row=1, column=0, sticky=W)
 query_search = StringVar()
-query_search.set("SELECT * FROM entries WHERE YEAR > 2021")
-query_search_entry = Entry(frame_search, textvariable=query_search, width=40)
+query_search.set("SELECT * FROM entries WHERE YEAR > 2021 ORDER BY id DESC")
+query_search_entry = Entry(frame_search, textvariable=query_search, width=70)
 query_search_entry.grid(row=1, column=1)
 
 frame_fields = Frame(app)
@@ -442,7 +445,7 @@ clear_btn = Button(frame_btns, text='Clear Input',
 clear_btn.grid(row=0, column=3)
 
 search_btn = Button(frame_search, text='Search',
-                    width=12, command=search_hostname)
+                    width=12, command=search_uid)
 search_btn.grid(row=0, column=2)
 
 search_query_btn = Button(frame_search, text='Search Query',
@@ -461,7 +464,7 @@ reset_width_btn = Button(frame_btns, text="↓ Reset Column Width ↓",
                           width=19, command=reset_width, bg='yellow')
 reset_width_btn.grid(row=0, column=6, padx = 50)
 
-sort_desc_btn = Button(frame_btns, text="↓ Sort by ID DESC ↓",
+sort_desc_btn = Button(frame_btns, text="↓ Reset all Filters ↓",
                           width=19, command=sort_desc, bg='pink')
 sort_desc_btn.grid(row=0, column=7, padx = 50)
 
