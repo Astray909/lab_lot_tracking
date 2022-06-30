@@ -1,4 +1,7 @@
-from datetime import date
+from datetime import date, time
+import time
+import os
+import shutil
 from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Treeview
@@ -98,6 +101,7 @@ def populate_list2(query='select * from entries'):
 
 # get all entries and populate db
 def add_entry():
+    create_backup()
     # if STATUS_text.get() == '' or UID_text.get() == '' or YEAR_text.get() == '' or WEEK_text.get() == '' or DEPT_text.get() == '' or TESTER_text.get() == '' or PROGRAM_text.get() == '' or BOX_text.get() == '' or PRODUCT_text.get() == '' or DATECODE_text.get() == '' or LOT_text.get() == '' or TEST_text.get() == '' or PACKAGE_text.get() == '' or HOUR_text.get() == '' or STACK_TRAY_text.get() == '' or DEVICE_NUM_text.get() == '' or QTY_text.get() == '' or RECEIVED_FROM_text.get() == '' or WOR_FORM_text.get() == '' or RECEIVED_ORDER_DATE_text.get() == '' or TEST_START_DATE_text.get() == '' or TOTAL_TIME_CONSUMED_text.get() == '' or DATE_OUT_text.get() == '' or COMMENTS_text.get() == '' or PRINT_LABEL_text.get() == '':
     #     messagebox.showerror('Required Fields', 'Please include all fields')
     #     return
@@ -167,6 +171,7 @@ def select_entry(event):
 
 # removes a row entry, displays a tkinter confirmation popup
 def remove_entry():
+    create_backup()
     MsgBox = messagebox.askquestion('Remove Entry','Are you sure you want to remove the selected entry?',icon = 'warning')
     if MsgBox == 'yes':
         db.remove(selected_item[0])
@@ -178,6 +183,7 @@ def remove_entry():
 
 # updates a row entry, displays a tkinter confirmation popup
 def update_entry():
+    create_backup()
     MsgBox = messagebox.askquestion('Update Entry','Are you sure you want to update the selected entry?',icon = 'warning')
     if MsgBox == 'yes':
         db.update(selected_item[0], STATUS_text.get(), UID_text.get(), YEAR_text.get(), WEEK_text.get(), DEPT_text.get(), TESTER_text.get(), PROGRAM_text.get(), BOX_text.get(), PRODUCT_text.get(), DATECODE_text.get(), LOT_text.get(), TEST_text.get(), PACKAGE_text.get(), HOUR_text.get(), STACK_TRAY_text.get(), DEVICE_NUM_text.get(), QTY_text.get(), RECEIVED_FROM_text.get(), WOR_FORM_text.get(), RECEIVED_ORDER_DATE_text.get(), TEST_START_DATE_text.get(), TOTAL_TIME_CONSUMED_text.get(), DATE_OUT_text.get(), COMMENTS_text.get(), PRINT_LABEL_text.get())
@@ -257,6 +263,22 @@ def reset_width():
 # sort db by id in desc
 def sort_desc():
     populate_list2("SELECT * FROM entries ORDER BY id DESC")
+
+def create_backup():
+    filenames = next(os.walk('X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\'), (None, None, []))[2]  # [] if no file
+    filenames = [ x for x in filenames if ".db" in x ]
+    if filenames:
+        modTimesinceEpoc = os.path.getmtime('X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\' + filenames[0])
+        arc_dir_name = '\\' + time.strftime('%Y_%m_%d_%H_%M_%S', time.localtime(modTimesinceEpoc))
+
+        if not os.path.exists('X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\dailylist_backup\\' + arc_dir_name):
+            os.makedirs('X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\dailylist_backup\\' + arc_dir_name)
+
+        for file in filenames:
+            shutil.copy('X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\' + file, 'X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\dailylist_backup\\' + arc_dir_name)
+
+def restore_backup():
+    pass
 
 # quits script
 def destroy():
