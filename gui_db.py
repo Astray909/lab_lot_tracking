@@ -12,6 +12,8 @@ from tkinter.filedialog import asksaveasfile
 
 import sqlite3, csv
 
+global_fs_state = True
+
 class Database:
     # Builds an empty database if not detected
     def __init__(self, db):
@@ -280,6 +282,11 @@ def create_backup():
 def restore_backup():
     pass
 
+def enter_fullscreen():
+    global global_fs_state
+    global_fs_state = not global_fs_state
+    app.attributes('-fullscreen', global_fs_state)
+
 # quits script
 def destroy():
     app.destroy()
@@ -294,8 +301,13 @@ gan_logo = Label(frame_logo, image = img) #attach logo img as label
 gan_logo.grid(row=0, column=0)
 
 ft = tkFont.Font(family='Times', size=10)
-exit_btn = Button(frame_logo, text='QUIT', width=15, height = 5, relief="raised", command=destroy, bg="red", fg="white", font=ft)
-exit_btn.grid(row=0, column=1, padx=1450, sticky=E)
+efs_btns = Frame(app)
+efs_btns.grid(row=0, column=1, padx=0, sticky=E)
+
+exit_btn = Button(efs_btns, text='QUIT', width=15, height = 5, relief="raised", command=destroy, bg="red", fg="white", font=ft)
+exit_btn.grid(row=0, column=1, sticky=W)
+fs_btn = Button(efs_btns, text='Toggle Fullscreen', width=15, height = 5, relief="raised", command=enter_fullscreen, bg="green", fg="white", font=ft)
+fs_btn.grid(row=0, column=0, sticky=E)
 
 frame_search = Frame(app)
 frame_search.grid(row=1, column=0)
@@ -515,7 +527,7 @@ frame_entry.grid(row=4, column=0, columnspan=4, rowspan=10, pady=20, padx=30, st
 frame_entry.rowconfigure(0, weight=10)
 
 columns = ['id','STATUS','UID','YEAR','WEEK','DEPT','TESTER','PROGRAM','BOX','PRODUCT','DATECODE','LOT','TEST','PACKAGE','HOUR','STACK_TRAY','DEVICE_NUM','QTY','RECEIVED_FROM','WOR_FORM','RECEIVED_ORDER_DATE','TEST_START_DATE','TOTAL_TIME_CONSUMED','DATE_OUT','COMMENTS','PRINT_LABEL']
-entry_tree_view = Treeview(frame_entry, columns=columns, show="headings", height=25)
+entry_tree_view = Treeview(frame_entry, columns=columns, show="headings", height=24)
 entry_tree_view.grid(row=0, column=0, sticky=E+W+N+S)
 entry_tree_view.column("id", width=32)
 for col in columns[1:]:
@@ -534,9 +546,9 @@ x_scrollbar.grid(row=1, column=0, sticky=E+W)
 entry_tree_view.config(xscrollcommand=x_scrollbar.set)
 
 app.title('Test Database')
-app.geometry('1920x1080') #default window resolution, change according to target resolution and monitor
+app.geometry('1920x1030') #default window resolution, change according to target resolution and monitor
 app.columnconfigure(0, weight=5)
-app.attributes('-fullscreen', True) #fullscreen flag, can be changed depending on target resolution and monitor
+app.attributes('-fullscreen', global_fs_state) #fullscreen flag, can be changed depending on target resolution and monitor
 
 # Populate data
 populate_list()
