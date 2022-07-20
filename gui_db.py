@@ -268,7 +268,7 @@ def sort_desc():
 
 def create_backup():
     filenames = next(os.walk('X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\'), (None, None, []))[2]  # [] if no file
-    filenames = [ x for x in filenames if ".db" in x ]
+    filenames = [ x for x in filenames if ".db" in x and "dailylist" in x]
     if filenames:
         modTimesinceEpoc = os.path.getmtime('X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\' + filenames[0])
         arc_dir_name = '\\' + time.strftime('%Y_%m_%d_%H_%M_%S', time.localtime(modTimesinceEpoc))
