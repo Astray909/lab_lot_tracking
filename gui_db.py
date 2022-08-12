@@ -305,9 +305,11 @@ efs_btns = Frame(app)
 efs_btns.grid(row=0, column=1, padx=0, sticky=E)
 
 exit_btn = Button(efs_btns, text='QUIT', width=15, height = 5, relief="raised", command=destroy, bg="red", fg="white", font=ft)
-exit_btn.grid(row=0, column=1, sticky=W)
+exit_btn.grid(row=0, column=2, sticky=W)
 fs_btn = Button(efs_btns, text='Toggle Fullscreen', width=15, height = 5, relief="raised", command=enter_fullscreen, bg="green", fg="white", font=ft)
-fs_btn.grid(row=0, column=0, sticky=E)
+fs_btn.grid(row=0, column=1, sticky=E)
+rf_btn = Button(efs_btns, text='Refresh', width=15, height = 5, relief="raised", command=sort_desc, bg="blue", fg="white", font=ft)
+rf_btn.grid(row=0, column=0, sticky=E)
 
 frame_search = Frame(app)
 frame_search.grid(row=1, column=0)
