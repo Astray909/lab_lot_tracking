@@ -268,7 +268,7 @@ def sort_desc():
 
 def create_backup():
     backup_dirs = get_immediate_subdirectories('X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\dailylist_backup')
-    if len(backup_dirs) > 50:
+    if len(backup_dirs) >= 50:
         dirs_to_remove = backup_dirs[:(len(backup_dirs)-49)]
         for dir in dirs_to_remove:
             shutil.rmtree(dir)
