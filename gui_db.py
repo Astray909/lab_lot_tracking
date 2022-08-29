@@ -173,9 +173,9 @@ def select_entry(event):
 
 # removes a row entry, displays a tkinter confirmation popup
 def remove_entry():
-    create_backup()
     MsgBox = messagebox.askquestion('Remove Entry','Are you sure you want to remove the selected entry?',icon = 'warning')
     if MsgBox == 'yes':
+        create_backup()
         db.remove(selected_item[0])
         clear_text()
         populate_list()
@@ -185,9 +185,9 @@ def remove_entry():
 
 # updates a row entry, displays a tkinter confirmation popup
 def update_entry():
-    create_backup()
     MsgBox = messagebox.askquestion('Update Entry','Are you sure you want to update the selected entry?',icon = 'warning')
     if MsgBox == 'yes':
+        create_backup()
         db.update(selected_item[0], STATUS_text.get(), UID_text.get(), YEAR_text.get(), WEEK_text.get(), DEPT_text.get(), TESTER_text.get(), PROGRAM_text.get(), BOX_text.get(), PRODUCT_text.get(), DATECODE_text.get(), LOT_text.get(), TEST_text.get(), PACKAGE_text.get(), HOUR_text.get(), STACK_TRAY_text.get(), DEVICE_NUM_text.get(), QTY_text.get(), RECEIVED_FROM_text.get(), WOR_FORM_text.get(), RECEIVED_ORDER_DATE_text.get(), TEST_START_DATE_text.get(), TOTAL_TIME_CONSUMED_text.get(), DATE_OUT_text.get(), COMMENTS_text.get(), PRINT_LABEL_text.get())
         populate_list()
         sort_desc()
@@ -267,6 +267,11 @@ def sort_desc():
     populate_list2("SELECT * FROM entries ORDER BY id DESC")
 
 def create_backup():
+    backup_dirs = get_immediate_subdirectories('X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\dailylist_backup')
+    if len(backup_dirs) > 50:
+        dirs_to_remove = backup_dirs[:(len(backup_dirs)-49)]
+        for dir in dirs_to_remove:
+            shutil.rmtree(dir)
     filenames = next(os.walk('X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\'), (None, None, []))[2]  # [] if no file
     filenames = [ x for x in filenames if ".db" in x and "dailylist" in x]
     if filenames:
@@ -278,6 +283,12 @@ def create_backup():
 
         for file in filenames:
             shutil.copy('X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\' + file, 'X:\\PLC\\Prod Docs\\Qual\\qrw_script\\dataAnalysis\\dailylist_backup\\' + arc_dir_name)
+
+def get_immediate_subdirectories(a_dir):
+    dir_names =  [name for name in os.listdir(a_dir)
+            if os.path.isdir(os.path.join(a_dir, name))]
+    dir_names = [a_dir + '\\' + name for name in dir_names]
+    return dir_names
 
 def restore_backup():
     pass
